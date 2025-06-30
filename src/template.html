@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div class="weather-app">
+      <header class="weather-app__header">
+        <form class="search" id="searchForm">
+          <div class="search__group">
+            <input type="text" class="search__input" placeholder="Enter city, address, or coordinates..." id="searchInput" />
+            <button type="submit" class="search__btn search__btn--primary" id="searchBtn">🔍</button>
+          </div>
+          <button type="button" class="search__btn search__btn--secondary" id="locationBtn">📍 Use your location</button>
+        </form>
+        <div class="status" id="status"></div>
+      </header>
+
+      <!-- Welcome State -->
+      <div class="welcome" id="welcomeState">
+        <div class="welcome__icon">🌤️</div>
+        <h1 class="welcome__title">Welcome to Weather App</h1>
+        <p class="welcome__subtitle">Get accurate weather forecasts for any location around the world</p>
+
+        <div class="welcome__actions">
+          <div class="welcome__action-card">
+            <div class="welcome__action-icon">🔍</div>
+            <h2 class="welcome__action-title">Search Location</h2>
+            <p class="welcome__action-desc">Enter any city name or coordinates in the search box above</p>
+          </div>
+
+          <div class="welcome__action-card">
+            <div class="welcome__action-icon">📍</div>
+            <h2 class="welcome__action-title">Use Your Location</h2>
+            <p class="welcome__action-desc">Click "Use My Location" to get weather for your current position</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-state hidden" id="loadingState">
+        <div class="spinner"></div>
+        <h2 class="loading-title">Getting Weather Data...</h2>
+        <p class="loading-message" id="loadingMessage">Please wait while we fetch the latest weather information</p>
+      </div>
+
+      <!-- Error State -->
+      <div class="error-state hidden" id="errorState">
+        <div class="error-icon">❌</div>
+        <h2 class="error-title">Oops! Something went wrong</h2>
+        <p class="error-message" id="errorMessage">We couldn't fetch the weather data. Please check your connection and try again.</p>
+        <button class="retry-btn" id="retryBtn">Try Again</button>
+      </div>
+
+      <!-- Main Content -->
+      <main class="weather-app__content hidden" id="weatherContent">
+        <!-- Current Weather Section - Compact Left Side -->
+        <section class="current-weather">
+          <div class="current-weather__main" id="currentWeather">
+            <div class="current-weather__location">Amsterdam, Netherlands</div>
+            <div class="current-weather__temp">18°</div>
+            <div class="current-weather__icon">⛅</div>
+            <div class="current-weather__condition">Partly Cloudy</div>
+            <div class="current-weather__feels-like">Feels like 20°</div>
+          </div>
+
+          <div class="weather-details" id="weatherDetails">
+            <div class="weather-details__card">
+              <span class="weather-details__icon">🌡️</span>
+              <div class="weather-details__label">High / Low</div>
+              <div class="weather-details__value temp">22° / 14°</div>
+            </div>
+            <div class="weather-details__card">
+              <span class="weather-details__icon">💧</span>
+              <div class="weather-details__label">Humidity</div>
+              <div class="weather-details__value humidity">68%</div>
+            </div>
+            <div class="weather-details__card">
+              <span class="weather-details__icon">💨</span>
+              <div class="weather-details__label">Wind</div>
+              <div class="weather-details__value wind">15 km/h SW</div>
+            </div>
+            <div class="weather-details__card">
+              <span class="weather-details__icon">🌧️</span>
+              <div class="weather-details__label">Precipitation</div>
+              <div class="weather-details__value precipitation">30%</div>
+            </div>
+            <div class="weather-details__card">
+              <span class="weather-details__icon">🌅</span>
+              <div class="weather-details__label">Sunrise</div>
+              <div class="weather-details__value sunrise">5:32 AM</div>
+            </div>
+            <div class="weather-details__card">
+              <span class="weather-details__icon">🌇</span>
+              <div class="weather-details__label">Sunset</div>
+              <div class="weather-details__value sunset">9:18 PM</div>
+            </div>
+            <div class="weather-details__card">
+              <span class="weather-details__icon">☀️</span>
+              <div class="weather-details__label">UV Index</div>
+              <div class="weather-details__value uv">6 High</div>
+            </div>
+            <div class="weather-details__card">
+              <span class="weather-details__icon">👁️</span>
+              <div class="weather-details__label">Visibility</div>
+              <div class="weather-details__value visibility">10 km</div>
+            </div>
+            <div class="weather-details__card">
+              <span class="weather-details__icon">📊</span>
+              <div class="weather-details__label">Pressure</div>
+              <div class="weather-details__value pressure">1013 hPa</div>
+            </div>
+            <div class="weather-details__card">
+              <span class="weather-details__icon">🌡️</span>
+              <div class="weather-details__label">Dew Point</div>
+              <div class="weather-details__value dew">12°</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Forecasts Section - Larger Right Side -->
+        <section class="forecasts">
+          <div class="hourly-forecast">
+            <h3 class="hourly-forecast__title">
+              <span>🕐</span>
+              Hourly Forecast
+            </h3>
+            <div class="hourly-forecast__list" id="hourlyList">
+              <div class="hourly-forecast__item">
+                <div class="hourly-forecast__time">Now</div>
+                <div class="hourly-forecast__icon">⛅</div>
+                <div class="hourly-forecast__temp">18°</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weekly Forecast - More Space -->
+          <div class="weekly-forecast">
+            <h3 class="weekly-forecast__title">
+              <span>📅</span>
+              3-Day Forecast
+            </h3>
+            <div class="weekly-forecast__list" id="weeklyList">
+              <div class="weekly-forecast__item">
+                <div class="weekly-forecast__day">Today</div>
+                <div class="weekly-forecast__icon">⛅</div>
+                <div class="weekly-forecast__condition">Partly Cloudy</div>
+                <div class="weekly-forecast__temps">
+                  <span class="weekly-forecast__temp-high">22°</span>
+                  <span class="weekly-forecast__temp-low">14°</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
