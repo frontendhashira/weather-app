@@ -1,4 +1,4 @@
-import { createElementWithClass } from "../../utils/utils";
+import { createElementWithClass } from '../../utils/utils';
 
 export const states = {
 	WELCOME: 'welcomeState',
@@ -108,29 +108,30 @@ function updateCurrent(data) {
 	el.dew.textContent = `${data.current.dewpoint_c}°C`;
 }
 
+
 function updateHourly(data) {
-	const hourlyList = document.getElementById('hourlyList');
-	hourlyList.innerHTML = '';
-	const currentHour = new Date().getHours();
+const hourlyList = document.getElementById('hourlyList');
+hourlyList.innerHTML = '';
+const currentHour = new Date().getHours();
 
-	const filtered = data.forecast.forecastday[0].hour.filter(
-		(h) => new Date(h.time).getHours() >= currentHour,
-	);
+const filtered = data.forecast.forecastday[0].hour.filter(
+	(h) => new Date(h.time).getHours() >= currentHour,
+);
 
-	for (const h of filtered) {
-		const iconUrl = `https:${h.condition.icon}`;
-		const item = createElementWithClass('div', 'hourly-forecast__item');
-		const time = createElementWithClass('div', 'hourly-forecast__time');
-		const icon = createElementWithClass('div', 'hourly-forecast__icon');
-		const temp = createElementWithClass('div', 'hourly-forecast__temp');
+for (const h of filtered) {
+	const iconUrl = `https:${h.condition.icon}`;
+	const item = createElementWithClass('div', 'hourly-forecast__item');
+	const time = createElementWithClass('div', 'hourly-forecast__time');
+	const icon = createElementWithClass('div', 'hourly-forecast__icon');
+	const temp = createElementWithClass('div', 'hourly-forecast__temp');
 
-		time.textContent = formatHour(h.time);
-		icon.innerHTML = `<img src="${iconUrl}" alt="${h.condition.text} icon" />`;
-		temp.textContent = `${h.temp_c}°C`;
+	time.textContent = formatHour(h.time);
+	icon.innerHTML = `<img src="${iconUrl}" alt="${h.condition.text} icon" />`;
+	temp.textContent = `${h.temp_c}°C`;
 
-		item.append(time, icon, temp);
-		hourlyList.append(item);
-	}
+	item.append(time, icon, temp);
+	hourlyList.append(item);
+}
 }
 
 function updateWeekly(data) {

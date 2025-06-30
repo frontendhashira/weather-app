@@ -12,6 +12,17 @@ body {
 	min-height: 100vh;
 }
 
+*:focus {
+	outline: 3px solid #764ba2;
+	outline-offset: 2px;
+}
+
+button:focus,
+input:focus {
+	outline: 3px solid #764ba2;
+	outline-offset: 2px;
+}
+
 .hidden {
 	display: none !important;
 }
@@ -62,7 +73,6 @@ body {
 	font-size: 0.85rem;
 	background: transparent;
 	color: white;
-	outline: none;
 }
 
 .search__input::placeholder {
